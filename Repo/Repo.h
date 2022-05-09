@@ -5,19 +5,21 @@
 #ifndef LAB_9_LIVE_REPO_H
 #define LAB_9_LIVE_REPO_H
 
-#include "../Product/Product.h"
+#include "../Ticket/Ticket.h"
 #include <vector>
 
 using namespace std;
 
 class Repo {
-    vector<Product> products;
-    int noProducts;
+protected:
+    vector<Ticket> tickets;
 public:
     Repo();
-    void addProduct(Product &product);
-    vector<Product> getAll();
-    Product getProductByCode(int code);
+    void addTicket(Ticket &ticket);
+    void deleteTicket(Ticket ticket);
+    void modifyTicket(Ticket oldTicket, Ticket newTicket);
+    vector<Ticket> getAll();
+    Ticket getTicketById(int id);
     int getSize();
     ~Repo();
 };

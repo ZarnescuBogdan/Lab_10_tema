@@ -4,30 +4,43 @@
 
 #include "Repo.h"
 
-Repo::Repo() {
-    this->noProducts = 0;
+Repo::Repo() = default;
+
+void Repo::addTicket(Ticket &ticket) {
+    this->tickets.push_back(ticket);
 }
 
-void Repo::addProduct(Product &product) {
-    this->products.push_back(product);
-    this->noProducts++;
-}
-
-vector<Product> Repo::getAll() {
-    return this->products;
-}
-
-Product Repo::getProductByCode(int code) {
-    for(auto& p: this->getAll()) {
-        if(p.getCode() == code) {
-            return p;
+void Repo::deleteTicket(Ticket ticket) {
+    for(int i = 0; i < tickets.size(); i++) {
+        if(tickets[i].getId() == ticket.getId()) {
+            tickets.erase(tickets.begin() + i);
         }
     }
-    throw runtime_error("There is no product with given code!");
+}
+
+void Repo::modifyTicket(Ticket oldTicket, Ticket newTicket) {
+    for(Ticket & ticket : tickets) {
+        if(ticket.getId() == oldTicket.getId()) {
+            ticket = newTicket;
+        }
+    }
+}
+
+Ticket Repo::getTicketById(int id) {
+    for(Ticket &ticket: tickets) {
+        if(ticket.getId() == id) {
+            return ticket;
+        }
+    }
+    throw runtime_error("No ticket with given id was found!");
+}
+
+vector<Ticket> Repo::getAll() {
+    return this->tickets;
 }
 
 int Repo::getSize() {
-    return this->noProducts;
+    return this->tickets.size();
 }
 
 Repo::~Repo() = default;
